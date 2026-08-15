@@ -657,7 +657,7 @@ const DEFAULT_API_BASE = 'http://127.0.0.1:8000';
 
 let sessionId = null;
 let apiBase = DEFAULT_API_BASE;
-document.getElementById('apiBase').value = DEFAULT_API_BASE;
+if (document.getElementById('apiBase')) document.getElementById('apiBase').value = DEFAULT_API_BASE;
 let chart = null;
 
 // The technical "connect your backend" box stays hidden permanently — no UI
