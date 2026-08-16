@@ -406,7 +406,7 @@
   <div class="setup glass" id="setupBox" style="display:none;">
     <h2>1. Connect your backend</h2>
     <div class="row">
-      const DEFAULT_API_BASE = 'https://invoice-buddy-backend-production.up.railway.app';
+      <input type="text" id="apiBase" value="http://127.0.0.1:8000" placeholder="http://127.0.0.1:8000">
       <button class="primary" id="testConn" type="button">Test connection</button>
       <span id="connStatus" style="font-size:13px;"></span>
     </div>
@@ -653,7 +653,7 @@ document.getElementById('ledgerDate').textContent = new Date().toLocaleDateStrin
 
 // ===== One place to set this once you deploy your backend online =====
 // Example after deploying: 'https://invoice-buddy-backend.onrender.com'
-const DEFAULT_API_BASE = 'http://127.0.0.1:8000';
+const DEFAULT_API_BASE = 'https://invoice-buddy-backend-production.up.railway.app';
 
 let sessionId = null;
 let apiBase = DEFAULT_API_BASE;
@@ -696,7 +696,7 @@ function showError(msg){
 }
 
 document.getElementById('testConn').addEventListener('click', async () => {
-  apiBase = document.getElementById('apiBase').value.replace(/\/$/, '');
+  apiBase = (document.getElementById('apiBase') ? document.getElementById('apiBase').value : DEFAULT_API_BASE).replace(/\/$/, '');
   const statusEl = document.getElementById('connStatus');
   statusEl.textContent = 'Checking…'; statusEl.style.color = 'var(--ink-soft)';
   try {
@@ -792,7 +792,7 @@ uploadBtn.addEventListener('click', async () => {
   if (!selectedFile) return;
   showError('');
   uploadBtn.disabled = true; uploadBtn.textContent = 'Analyzing…';
-  apiBase = document.getElementById('apiBase').value.replace(/\/$/, '');
+  apiBase = (document.getElementById('apiBase') ? document.getElementById('apiBase').value : DEFAULT_API_BASE).replace(/\/$/, '');
   const form = new FormData(); form.append('file', selectedFile);
   try {
     const res = await fetch(apiBase + '/upload', { method: 'POST', body: form });
